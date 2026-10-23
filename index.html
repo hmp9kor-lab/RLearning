@@ -12,91 +12,446 @@
     }
 
     body {
-      font-family: Arial, sans-serif;
-      max-width: 750px;
-      margin: 40px auto;
-      padding: 20px;
-      background: #f4f6f8;
-      color: #222;
+      font-family: "Segoe UI", Arial, sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      padding: 45px 20px;
+      color: #202044;
+      background:
+        radial-gradient(circle at 10% 10%, #dcd7ff 0, transparent 35%),
+        radial-gradient(circle at 90% 85%, #c9edff 0, transparent 35%),
+        linear-gradient(135deg, #f5f3ff, #eef6ff);
+    }
+
+    .container {
+      max-width: 850px;
+      margin: auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .logo {
+      display: inline-grid;
+      place-items: center;
+      width: 62px;
+      height: 62px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #6d5dfc, #9585ff);
+      color: white;
+      font-size: 29px;
+      box-shadow: 0 10px 25px #7968fc44;
     }
 
     h1 {
-      text-align: center;
+      margin: 15px 0 8px;
+      font-size: clamp(28px, 5vw, 38px);
+      letter-spacing: -1.2px;
+    }
+
+    .subtitle {
+      color: #777995;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .board {
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 20px 60px #454b8b14;
+      backdrop-filter: blur(16px);
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .badge {
+      background: #eeeaff;
+      color: #6753df;
+      border-radius: 20px;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 700;
     }
 
     .task-form {
       display: flex;
-      gap: 8px;
-      margin-bottom: 20px;
+      gap: 10px;
+      margin-bottom: 24px;
     }
 
-    input, select, button {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+    input, button {
+      font: inherit;
     }
 
-    input {
+    #taskInput {
       flex: 1;
       min-width: 0;
+      padding: 14px 16px;
+      border: 1px solid #e3e4f0;
+      border-radius: 12px;
+      outline: none;
+      background: #fafaff;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+
+    #taskInput:focus {
+      border-color: #8170ff;
+      box-shadow: 0 0 0 4px #8170ff19;
     }
 
     button {
+      border: 0;
       cursor: pointer;
-      background: #14532d;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    button:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    .add-button {
+      padding: 13px 19px;
       color: white;
-      border: none;
+      font-weight: 600;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #6b5bfa, #8975ff);
+      box-shadow: 0 6px 15px #7968fc30;
+      white-space: nowrap;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .stat-card {
+      padding: 17px;
+      border-radius: 16px;
+      border: 1px solid transparent;
+    }
+
+    .stat-card.total {
+      background: #f0edff;
+      border-color: #e5dfff;
+    }
+
+    .stat-card.done {
+      background: #e9f9f0;
+      border-color: #d8f2e3;
+    }
+
+    .stat-card.remaining {
+      background: #fff4e5;
+      border-color: #ffead0;
+    }
+
+    .stat-label {
+      color: #777995;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .stat-number {
+      font-size: 27px;
+      font-weight: 750;
+      letter-spacing: -1px;
+    }
+
+    .total .stat-number { color: #6b5bdb; }
+    .done .stat-number { color: #16975c; }
+    .remaining .stat-number { color: #d98219; }
+
+    .progress-section {
+      margin-bottom: 28px;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 13px;
+      color: #777995;
+      margin-bottom: 10px;
+    }
+
+    .progress-track {
+      height: 9px;
+      overflow: hidden;
+      border-radius: 10px;
+      background: #eeedf6;
+    }
+
+    #progressBar {
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #6b5bfa, #49c99a);
+      transition: width 0.3s ease;
+    }
+
+    .task-list-heading {
+      margin-bottom: 14px;
+    }
+
+    #taskList {
+      display: grid;
+      gap: 11px;
     }
 
     .task {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 13px;
+      padding: 15px;
       background: white;
-      padding: 12px;
-      margin-bottom: 10px;
-      border-radius: 8px;
-      box-shadow: 0 1px 4px #ddd;
+      border: 1px solid #edecf5;
+      border-radius: 14px;
+      transition: border 0.2s, transform 0.2s, box-shadow 0.2s;
+      animation: appear 0.25s ease;
+    }
+
+    .task:hover {
+      border-color: #d8d1ff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px #454b8b0c;
+    }
+
+    .task-checkbox {
+      width: 19px;
+      height: 19px;
+      flex-shrink: 0;
+      accent-color: #7564f8;
+      cursor: pointer;
     }
 
     .task span {
       flex: 1;
+      min-width: 0;
       overflow-wrap: anywhere;
+      line-height: 1.5;
     }
 
     .completed {
       text-decoration: line-through;
-      color: #777;
+      color: #a1a2b4;
+    }
+
+    .task-status {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 9px;
+      border-radius: 20px;
+      white-space: nowrap;
+      background: #fff1dd;
+      color: #bd781d;
+    }
+
+    .task-status.is-done {
+      background: #e5f8ee;
+      color: #168a52;
     }
 
     .delete {
-      background: #b91c1c;
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: #fff0f0;
+      color: #d34b58;
+      font-size: 17px;
+      flex-shrink: 0;
     }
 
-    #summary {
-      margin: 16px 0;
-      color: #555;
+    .delete:hover {
+      background: #ffe0e2;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 35px 15px;
+      border: 1px dashed #dcdbea;
+      border-radius: 16px;
+      color: #85869f;
+    }
+
+    .empty-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .empty-state p {
+      margin: 7px 0 0;
+      font-size: 13px;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 12px;
+      color: #9697ac;
+      margin-top: 22px;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(5px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 560px) {
+      body {
+        padding: 25px 12px;
+      }
+
+      .board {
+        padding: 18px;
+        border-radius: 20px;
+      }
+
+      .task-form {
+        flex-direction: column;
+      }
+
+      .add-button {
+        width: 100%;
+      }
+
+      .stats {
+        gap: 7px;
+      }
+
+      .stat-card {
+        padding: 12px 9px;
+      }
+
+      .stat-label {
+        font-size: 11px;
+      }
+
+      .stat-number {
+        font-size: 23px;
+      }
+
+      .task {
+        gap: 9px;
+        padding: 12px 9px;
+      }
+
+      .task-status {
+        font-size: 10px;
+        padding: 5px 6px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <h1>Team Task Board</h1>
-  <p>Add tasks, track progress, and practise collaborating through Git.</p>
+  <main class="container">
+    <header class="header">
+      <div class="logo" aria-hidden="true">✓</div>
+      <h1>Team Task Board</h1>
+      <p class="subtitle">
+        Organize your work, track your progress, and get things done.
+      </p>
+    </header>
 
-  <form id="taskForm" class="task-form">
-    <input id="taskInput" placeholder="Enter a task..." required>
-    <button type="submit">Add Task</button>
-  </form>
+    <section class="board">
+      <div class="section-heading">
+        <h2>Your workspace</h2>
+        <span class="badge">✦ Stay productive</span>
+      </div>
 
-  <div id="summary">0 tasks</div>
-  <div id="taskList"></div>
+      <form id="taskForm" class="task-form">
+        <input
+          id="taskInput"
+          type="text"
+          placeholder="What needs to get done?"
+          aria-label="Enter a task"
+          required
+        >
+        <button type="submit" class="add-button">＋ Add Task</button>
+      </form>
+
+      <section class="stats" aria-label="Task statistics">
+        <div class="stat-card total">
+          <div class="stat-label">Total tasks</div>
+          <div class="stat-number" id="totalCount">0</div>
+        </div>
+
+        <div class="stat-card done">
+          <div class="stat-label">Completed</div>
+          <div class="stat-number" id="completedCount">0</div>
+        </div>
+
+        <div class="stat-card remaining">
+          <div class="stat-label">Remaining</div>
+          <div class="stat-number" id="remainingCount">0</div>
+        </div>
+      </section>
+
+      <section class="progress-section">
+        <div class="progress-info">
+          <span>Overall progress</span>
+          <strong id="progressText">0% completed</strong>
+        </div>
+        <div
+          class="progress-track"
+          role="progressbar"
+          aria-label="Task completion progress"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="0"
+          id="progressTrack"
+        >
+          <div id="progressBar"></div>
+        </div>
+      </section>
+
+      <div class="section-heading task-list-heading">
+        <h2>Your tasks</h2>
+        <span class="badge" id="taskCountBadge">0 items</span>
+      </div>
+
+      <div id="taskList" aria-live="polite"></div>
+    </section>
+
+    <footer>Made for better teamwork · One task at a time ✨</footer>
+  </main>
 
   <script>
     const taskForm = document.getElementById("taskForm");
     const taskInput = document.getElementById("taskInput");
     const taskList = document.getElementById("taskList");
-    const summary = document.getElementById("summary");
+
+    const totalCount = document.getElementById("totalCount");
+    const completedCount = document.getElementById("completedCount");
+    const remainingCount = document.getElementById("remainingCount");
+    const taskCountBadge = document.getElementById("taskCountBadge");
+    const progressText = document.getElementById("progressText");
+    const progressBar = document.getElementById("progressBar");
+    const progressTrack = document.getElementById("progressTrack");
 
     let tasks = [];
 
@@ -109,7 +464,12 @@
 
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
+        checkbox.className = "task-checkbox";
         checkbox.checked = task.completed;
+        checkbox.setAttribute(
+          "aria-label",
+          `Mark ${task.title} as ${task.completed ? "incomplete" : "complete"}`
+        );
 
         checkbox.addEventListener("change", () => {
           task.completed = checkbox.checked;
@@ -123,23 +483,63 @@
           text.className = "completed";
         }
 
+        const status = document.createElement("span");
+        status.className = "task-status";
+        status.textContent = task.completed ? "Done" : "In progress";
+
+        if (task.completed) {
+          status.classList.add("is-done");
+        }
+
         const deleteButton = document.createElement("button");
-        deleteButton.textContent = "Delete";
+        deleteButton.type = "button";
         deleteButton.className = "delete";
+        deleteButton.textContent = "×";
+        deleteButton.setAttribute("aria-label", `Delete ${task.title}`);
+        deleteButton.title = "Delete task";
 
         deleteButton.addEventListener("click", () => {
           tasks = tasks.filter((item) => item.id !== task.id);
           renderTasks();
         });
 
-        row.append(checkbox, text, deleteButton);
+        row.append(checkbox, text, status, deleteButton);
         taskList.appendChild(row);
       });
 
+      if (tasks.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "empty-state";
+
+        const icon = document.createElement("div");
+        icon.className = "empty-icon";
+        icon.textContent = "📝";
+
+        const heading = document.createElement("strong");
+        heading.textContent = "Your board is clear!";
+
+        const message = document.createElement("p");
+        message.textContent = "Add your first task to get started.";
+
+        empty.append(icon, heading, message);
+        taskList.appendChild(empty);
+      }
+
       const completed = tasks.filter((task) => task.completed).length;
-      summary.textContent =
-        `${tasks.length} tasks · ${completed} completed · ` +
-        `${tasks.length - completed} remaining`;
+      const remaining = tasks.length - completed;
+      const percentage = tasks.length
+        ? Math.round((completed / tasks.length) * 100)
+        : 0;
+
+      totalCount.textContent = tasks.length;
+      completedCount.textContent = completed;
+      remainingCount.textContent = remaining;
+      taskCountBadge.textContent =
+        `${tasks.length} ${tasks.length === 1 ? "item" : "items"}`;
+
+      progressText.textContent = `${percentage}% completed`;
+      progressBar.style.width = `${percentage}%`;
+      progressTrack.setAttribute("aria-valuenow", percentage);
     }
 
     taskForm.addEventListener("submit", (event) => {
@@ -149,13 +549,14 @@
       if (!title) return;
 
       tasks.push({
-        id: Date.now(),
-        title: title,
+        id: Date.now() + Math.random(),
+        title,
         completed: false
       });
 
       taskInput.value = "";
       renderTasks();
+      taskInput.focus();
     });
 
     renderTasks();

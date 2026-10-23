@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team Task Board</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 750px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f4f6f8;
+      color: #222;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .task-form {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    input, select, button {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    input {
+      flex: 1;
+      min-width: 0;
+    }
+
+    button {
+      cursor: pointer;
+      background: #14532d;
+      color: white;
+      border: none;
+    }
+
+    .task {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px #ddd;
+    }
+
+    .task span {
+      flex: 1;
+      overflow-wrap: anywhere;
+    }
+
+    .completed {
+      text-decoration: line-through;
+      color: #777;
+    }
+
+    .delete {
+      background: #b91c1c;
+    }
+
+    #summary {
+      margin: 16px 0;
+      color: #555;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Team Task Board</h1>
+  <p>Add tasks, track progress, and practise collaborating through Git.</p>
+
+  <form id="taskForm" class="task-form">
+    <input id="taskInput" placeholder="Enter a task..." required>
+    <button type="submit">Add Task</button>
+  </form>
+
+  <div id="summary">0 tasks</div>
+  <div id="taskList"></div>
+
+  <script>
+    const taskForm = document.getElementById("taskForm");
+    const taskInput = document.getElementById("taskInput");
+    const taskList = document.getElementById("taskList");
+    const summary = document.getElementById("summary");
+
+    let tasks = [];
+
+    function renderTasks() {
+      taskList.innerHTML = "";
+
+      tasks.forEach((task) => {
+        const row = document.createElement("div");
+        row.className = "task";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = task.completed;
+
+        checkbox.addEventListener("change", () => {
+          task.completed = checkbox.checked;
+          renderTasks();
+        });
+
+        const text = document.createElement("span");
+        text.textContent = task.title;
+
+        if (task.completed) {
+          text.className = "completed";
+        }
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.className = "delete";
+
+        deleteButton.addEventListener("click", () => {
+          tasks = tasks.filter((item) => item.id !== task.id);
+          renderTasks();
+        });
+
+        row.append(checkbox, text, deleteButton);
+        taskList.appendChild(row);
+      });
+
+      const completed = tasks.filter((task) => task.completed).length;
+      summary.textContent =
+        `${tasks.length} tasks · ${completed} completed · ` +
+        `${tasks.length - completed} remaining`;
+    }
+
+    taskForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const title = taskInput.value.trim();
+      if (!title) return;
+
+      tasks.push({
+        id: Date.now(),
+        title: title,
+        completed: false
+      });
+
+      taskInput.value = "";
+      renderTasks();
+    });
+
+    renderTasks();
+  </script>
+</body>
+</html>
